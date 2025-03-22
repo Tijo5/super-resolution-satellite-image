@@ -1,0 +1,31 @@
+# General Settings
+name: infer_esrgan_s2naip_urban
+model_type: SSRESRGANModel
+scale: 4
+num_gpu: auto
+manual_seed: 0
+
+# Inference Settings
+
+# Chemin vers tes images basse résolution (images LR)
+data_dir: /home/ensta/ensta-sidi/Project_IA/combined_dataset/test/LR/
+
+n_lr_images: 1  # tu utilises des images Sentinel-2 LR seules avec 3 canaux (RGB)
+
+# Dossier où seront sauvegardées les images super-résolues
+save_path: /home/ensta/ensta-sidi/Project_IA/inference_results/
+
+# Structure du générateur utilisé pour l’inférence
+network_g:
+  type: SSR_RRDBNet
+  num_in_ch: 3   # 1 image Sentinel2 avec 3 canaux RGB
+  num_out_ch: 3
+  num_feat: 64
+  num_block: 23
+  num_grow_ch: 32
+
+# Chargement du modèle entraîné
+path:
+  pretrain_network_g: experiments/esrgan_s2naip_urban/models/net_g_90000.pth
+  param_key_g: params_ema
+  strict_load_g: true
